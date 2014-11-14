@@ -29,7 +29,6 @@ namespace Mission2
                 
                 for (int i = 0; i < 16; i++)
                 {
-
                     row += input[i + (currentRow * 16)];
                 }
 
@@ -38,8 +37,6 @@ namespace Mission2
 
             PrintOutput("Rows:", rows);
         }
-
-
 
         private static void getColumns(string input)
         {
@@ -63,32 +60,36 @@ namespace Mission2
         private static void getGrids(string input)
         {
             List<string> grids = new List<string>();
+            int startOfGrid; 
+            const int Reset = 0;
             string currentGrid = String.Empty;
-            int start;
+            
 
-            for (int col = 0; col < 4; col++)
+            for (int column = 0; column < 4; column++)
             {
-                start = 0;
-                start = col * 4;
+                startOfGrid = column * 4;
 
                 for (int row = 0; row < 16; row++)
                 {
-                    for (int i = 0; i < 4; i++)
+                    for (int val = 0; val < 4; val++)
                     {
-                        currentGrid += input[i + start];
+                        currentGrid += input[val + startOfGrid];
                     }
 
-                    if (start == (48 + (col * 4)) || 
-                        start == (112 + (col * 4)) || 
-                        start == (176 + (col * 4)) || 
-                        start == (240 + (col * 4)))
+                    if (startOfGrid == ((64 * ((row / 4) + 1)) - 16) + (column * 4))
+                        //startOfGrid == (48 + (column * 4)) ||
+                        //startOfGrid == (112 + (column * 4)) ||
+                        //startOfGrid == (176 + (column * 4)) ||
+                        //startOfGrid == (240 + (column * 4)))
                     {
                         grids.Add(currentGrid);
                         currentGrid = String.Empty;
                     }
 
-                    start += 16;
+                    startOfGrid += 16;
                 }
+
+                startOfGrid = Reset;
             }
 
             PrintOutput("Grids:", grids);
@@ -103,7 +104,7 @@ namespace Mission2
             }
             Console.WriteLine();
         }
-    
+
     }
 }
 
